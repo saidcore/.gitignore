@@ -3,7 +3,7 @@ import scipy.stats
 import streamlit as st
 import time
 
-# estas son variables de estado que se conservan cuando Streamlin vuelve a ejecutar este script
+# estas son variables de estado que se conservan cuando Streamlit vuelve a ejecutar este script
 if 'experiment_no' not in st.session_state:
     st.session_state['experiment_no'] = 0
 
@@ -23,7 +23,7 @@ def toss_coin(n):
     outcome_1_count = 0
 
     for r in trial_outcomes:
-        outcome_no +=1
+        outcome_no += 1
         if r == 1:
             outcome_1_count += 1
         mean = outcome_1_count / outcome_no
@@ -39,15 +39,15 @@ if start_button:
     st.write(f'Experimento con {number_of_trials} intentos en curso.')
     st.session_state['experiment_no'] += 1
     mean = toss_coin(number_of_trials)
-    st.session_state['df_experiment_results'] = pd.concat([
+    st.session_state['df_experiment_results'] = pd.concat([ 
         st.session_state['df_experiment_results'],
         pd.DataFrame(data=[[st.session_state['experiment_no'],
                             number_of_trials,
                             mean]],
-                     columns=['no', 'iterations', 'mean'])
-        ],
-        axis=0)
-    st.session_state['df_experiment_results'] = 
-        st.session_state['df_experiment_results'].reset_index(drop=True)
+                     columns=['no', 'iteraciones', 'media'])
+    ], axis=0)
+    
+    # Aquí se corrige la sintaxis y se asigna correctamente el DataFrame
+    st.session_state['df_experiment_results'] = st.session_state['df_experiment_results'].reset_index(drop=True)
 
 st.write(st.session_state['df_experiment_results'])
